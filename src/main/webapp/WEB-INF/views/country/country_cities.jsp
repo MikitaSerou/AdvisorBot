@@ -11,8 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/x-icon"
           href="<spring:url value='/images/favicon.ico/'/>"/>
-    <title><spring:message code="bot.name"/></title>
+    <title>${country.name}</title>
     <link href='<spring:url value="/css/bootstrap.css"/>' rel="stylesheet"/>
+
     <script src="http://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             type="text/javascript"></script>
@@ -23,7 +24,7 @@
 <jsp:include page="../import/up_button.jsp"/>
 <div class="container">
     <div class="row">
-        <h1><spring:message code="all.cities"/></h1>
+        <h1><spring:message code="all.cities"/> (${country.name})</h1>
         <table class="table table-hover table-dark"
                border="1">
             <thead>
@@ -34,7 +35,7 @@
             <th><spring:message code="description"/></th>
             <th><spring:message code="action"/></th>
             </thead>
-            <c:forEach items="${cityList}" var="city">
+            <c:forEach items="${citiesOfCountry}" var="city">
                 <tr>
                     <a href="/city/${city.id}">
                         <td>${city.id}</td>
@@ -53,11 +54,9 @@
                         <td>${city.description}</td>
                     </a>
                     <td>
-                        <a data-method='delete'
-                           href='${pageContext.request.contextPath}/city/delete/${city.id}'>link</a>
+                        <a data-method='delete' href='${pageContext.request.contextPath}/city/delete/${city.id}'>link</a>
                         <button class="delete" data-target="${pageContext.request.contextPath}/city/delete/${city.id}"
-                                data-method="DELETE" data-disabled="true">Delete Article
-                        </button>
+                                data-method="DELETE" data-disabled="true">Delete Article</button>
                         <a data-confirm="Are you sure?" data-method="delete"
                            href="${pageContext.request.contextPath}/city/delete/${city.id}" rel="nofollow">Delete</a>
                         <form action="${pageContext.request.contextPath}/city/delete" method="post">
@@ -69,6 +68,6 @@
         </table>
     </div>
 </div>
-
+</div>
 </body>
 </html>

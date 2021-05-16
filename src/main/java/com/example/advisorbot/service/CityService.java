@@ -2,7 +2,6 @@ package com.example.advisorbot.service;
 
 import com.example.advisorbot.entity.City;
 import com.example.advisorbot.repository.CityRepository;
-import com.example.advisorbot.repository.CountryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,7 @@ public class CityService {
     }
 
     public void saveCity(City city) {
-        log.info("Creating new Entity...");
+        log.info("Creating new Entity(" + city + ")...");
         cityRepository.save(city);
     }
 
@@ -57,7 +56,7 @@ public class CityService {
             log.info("Cities with similar names: " + cities);
         }
 
-        if (cities!= null && cities.size() == 0) {
+        if (cities != null && cities.size() == 0) {
             log.warn("No one cities found");
             return null;
         }

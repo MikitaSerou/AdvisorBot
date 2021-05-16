@@ -1,6 +1,5 @@
 package com.example.advisorbot.service;
 
-import com.example.advisorbot.entity.City;
 import com.example.advisorbot.entity.Country;
 import com.example.advisorbot.repository.CityRepository;
 import com.example.advisorbot.repository.CountryRepository;
@@ -25,7 +24,8 @@ public class CountryService {
         return (List<Country>) countryRepository.findAll();
     }
 
-    public Country findById(Integer id){
+
+    public Country findById(Integer id) {
         Optional<Country> country = countryRepository.findById(id);
         log.info("findById(Integer " + id + ")");
         country.ifPresentOrElse(c -> {
@@ -34,5 +34,10 @@ public class CountryService {
                 () -> log.error("Country with this id: " + id + " is not exist."));
 
         return country.orElse(null);
+    }
+
+    public void saveCountry(Country country) {
+        log.info("Creating new Entity(" + country + ")...");
+        countryRepository.save(country);
     }
 }

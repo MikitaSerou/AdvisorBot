@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -18,18 +17,14 @@ import java.util.Map;
 @RequestMapping("/city")
 public class CityController {
 
-    private final CityService cityService;
+    @Autowired
+    private CityService cityService;
 
-    private final CountryService countryService;
+    @Autowired
+    private CountryService countryService;
 
     @Autowired
     private FormValidator formValidator;
-
-    @Autowired
-    public CityController(CityService cityService, CountryService countryService) {
-        this.cityService = cityService;
-        this.countryService = countryService;
-    }
 
 
     @GetMapping
@@ -61,7 +56,7 @@ public class CityController {
     @GetMapping("/new")
     public String cityPage(Model model) {
         log.info("GET request /city/new");
-        log.info("GET request /city/new" + model);
+        log.info("GET request /city/new " + model);
         model.addAttribute("countries", countryService.findAll());
 
         return "city/new_city";
@@ -76,13 +71,13 @@ public class CityController {
         log.info("POST request /city/new" +
                 "[name: " + name +
                 ", description: " + description +
-                ", country: " + countryId +
+                ", countryId: " + countryId +
                 ", isCapital: " + isCapital + "]");
 
         Map<String, String> errors = formValidator.cityAddFormValidate(name, description);
-        if (!errors.isEmpty()){
-            for (String errorCode:
-                 errors.keySet()) {
+        if (!errors.isEmpty()) {
+            for (String errorCode :
+                    errors.keySet()) {
                 model.addAttribute(errorCode, errors.get(errorCode));
             }
             return cityPage(model);

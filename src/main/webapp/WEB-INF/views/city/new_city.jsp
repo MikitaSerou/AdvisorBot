@@ -35,17 +35,17 @@
                 </svg>
             </h1>
 
-<style>
-    .error {
-        color: red;
-        margin-left: 5px;
-    }
-</style>
+            <style>
+                .error {
+                    color: red;
+                    margin-left: 5px;
+                }
+            </style>
             <form id="city_form" action="${pageContext.request.contextPath}/city/new" method="post">
                 <h4 id="name"><spring:message code="name"/>:</h4>
                 <p class="error">${empty_name}</p>
                 <p class="error">${not_unique_name}</p>
-                <input  type="text" class="form-control" name="name"
+                <input type="text" class="form-control" name="name" minlength="3"
                        placeholder="<spring:message code="name"/>"/>
                 <br/>
                 <h4><spring:message code="country"/>:</h4>
@@ -74,7 +74,7 @@
                 <h4 id="description"><spring:message code="description"/>:</h4>
                 <p class="error">${empty_description}</p>
                 <div class="form-group">
-                    <textarea  name="description" class="form-control" id="exampleFormControlTextarea1"
+                    <textarea name="description" class="form-control" id="exampleFormControlTextarea1"
                               placeholder="<spring:message code="description"/>" rows="3"></textarea>
                 </div>
                 <br/>

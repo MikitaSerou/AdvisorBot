@@ -20,21 +20,48 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
 </head>
 <body>
-
 <jsp:include page="../import/navigation_bar.jsp"/>
-
-
-
+<jsp:include page="../import/up_button.jsp"/>
 <div class="container">
-    <div class="row"><h1><spring:message code="all.countries"/></h1>
-        <div class="col-sm-9">
-            <ul>
-                <c:forEach var="country" items="${countriesList}">
-                    <li>${country.name}</li>
-                </c:forEach>
-            </ul>
-        </div>
-        <div class="col-sm-3">EEE BOIII!!</div>
+    <div class="row">
+        <h1><spring:message code="all.countries"/></h1>
+        <table class="table table-hover table-dark"
+               border="1">
+            <thead>
+            <th><spring:message code="id"/></th>
+            <th><spring:message code="name"/></th>
+            <th><spring:message code="abbreviation"/></th>
+            <th><spring:message code="currency"/></th>
+            <th><spring:message code="action"/></th>
+            </thead>
+            <c:forEach items="${countriesList}" var="country">
+                <tr>
+
+                    <td>${country.id}</td>
+                    <td><a href="${pageContext.request.contextPath}/country/${country.id}"><h3 style="color: White">
+                            ${country.name}</h3>
+                    </a></td>
+                    <td>${country.abbreviation.toUpperCase()}</td>
+                    <td>
+                        (${country.currency.name.toUpperCase()})
+                    </td>
+
+                    <td>
+                        <a data-method='delete'
+                           href='${pageContext.request.contextPath}/city/delete/${country.id}'>link</a>
+                        <button class="delete"
+                                data-target="${pageContext.request.contextPath}/city/delete/${country.id}"
+                                data-method="DELETE" data-disabled="true">Delete Article
+                        </button>
+                        <a data-confirm="Are you sure?" data-method="delete"
+                           href="${pageContext.request.contextPath}/city/delete/${country.id}" rel="nofollow">Delete</a>
+                        <form action="${pageContext.request.contextPath}/country/delete" method="post">
+                            <button type="submit" class="btn btn-danger"><spring:message code="delete"/></button>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
     </div>
 </div>
 </body>
