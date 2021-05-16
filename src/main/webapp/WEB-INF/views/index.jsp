@@ -27,11 +27,12 @@
 <h1><spring:message code="main.page"/></h1>
 <div class="container" <%--style="min-height: 80%"--%>>
     <div class="row">
-        <div class="col-sm-9"><img src='<spring:url value="https://www-cdn.intex-press.by/wp-content/uploads/2018/08/5-6.jpg"/>'
-                                   width="100%" class="rounded" alt="kek"></div>
-        <div class="col-sm-3">EEE BOIII!!</div>
+       <img src='<spring:url value="https://www-cdn.intex-press.by/wp-content/uploads/2018/08/5-6.jpg"/>'
+                                   width="100%" class="rounded" alt="kek">
+
     </div>
 </div>
+<jsp:include page="import/footer.jsp" />
 </body>
 </html>
 

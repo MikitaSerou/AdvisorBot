@@ -21,6 +21,7 @@
 <body>
 <jsp:include page="../import/navigation_bar.jsp"/>
 <jsp:include page="../import/up_button.jsp"/>
+
 <div class="container">
     <div class="row">
         <h1><spring:message code="all.cities"/></h1>
@@ -69,6 +70,6 @@
         </table>
     </div>
 </div>
-
+<jsp:include page="../import/footer.jsp"/>
 </body>
 </html>

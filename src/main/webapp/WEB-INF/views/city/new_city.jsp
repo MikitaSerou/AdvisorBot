@@ -22,6 +22,7 @@
 </head>
 <body>
 <jsp:include page="../import/navigation_bar.jsp"/>
+
 <div class="container" style="width: 50%;">
     <div class="row justify-content-center align-items-center">
         <div class="row">
@@ -92,5 +93,6 @@
     </div>
 </div>
 </div>
+<jsp:include page="../import/footer.jsp"/>
 </body>
 </html>
