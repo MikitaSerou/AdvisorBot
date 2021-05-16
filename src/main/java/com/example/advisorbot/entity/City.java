@@ -3,6 +3,7 @@ package com.example.advisorbot.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @NoArgsConstructor
@@ -17,9 +18,11 @@ public class City {
     private Integer id;
 
     @Column(name = "name", nullable = false, unique = true)
+    @NotEmpty(message="Введите название")
     private String name;
 
     @Column(name = "description")
+    @NotEmpty(message="Введите описание")
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER,

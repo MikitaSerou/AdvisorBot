@@ -3,9 +3,6 @@ package com.example.advisorbot.bot.bot_services;
 import com.example.advisorbot.bot.enums.Commands;
 import com.example.advisorbot.bot.enums.Links;
 import com.example.advisorbot.entity.City;
-import com.example.advisorbot.entity.Country;
-import com.example.advisorbot.repository.CityRepository;
-import com.example.advisorbot.repository.CountryRepository;
 import com.example.advisorbot.service.CityService;
 import com.vdurmont.emoji.EmojiParser;
 import lombok.extern.slf4j.Slf4j;
@@ -87,13 +84,13 @@ public class MessageDistributor {
         StringBuilder cityAnswer = new StringBuilder();
 
         cityAnswer.append("<b>" + city.getName() + "</b>\n\n" +
-                "Страна: " + EmojiParser.parseToUnicode(city.getCountry().getName() +
-                city.getCountry().getEmojiCode() + ":\n"));
+                "Страна: " + EmojiParser.parseToUnicode(city.getCountry().getName()+":" +
+                city.getCountry().getAbbreviation() + ":\n"));
         if (city.getIsCapital()) {
             cityAnswer.append(EmojiParser.parseToUnicode("Столица :crown:\n"));
         }
         cityAnswer.append(EmojiParser.parseToUnicode("Валюта:moneybag:: (" +
-                city.getCountry().getCurrency() + ")\n\n" +
+                city.getCountry().getCurrency().getName() + ")\n\n" +
                 "<i>" + city.getDescription() + "</i>\n\n" +
                 "<a href='" + Links.WIKIPEDIA.getLink() + city.getName() +
                 "'>Полная информация</a>"
@@ -101,42 +98,4 @@ public class MessageDistributor {
 
         return cityAnswer.toString();
     }
-
-//    public void init() {
-//        //TODO убрать
-//        countryRepository.save(new Country("Беларусь", ":by:", "BYN"));
-//        countryRepository.save(new Country("Украина", ":ua:", "UAH"));
-//        countryRepository.save(new Country("США", ":us:", "USD"));
-//        countryRepository.save(new Country("Россия", ":ru:", "RUB"));
-//
-//
-//        cityRepository.save(new City("Минск",
-//                "Столица республики Беларусь, город-герой. Обязательно загляните на Немигу," +
-//                        " а также летние площадки вроде Песочницы.",
-//                countryRepository.findById(1).get(), true));
-//
-//        cityRepository.save(new City("Гомель",
-//                "Самый Красивый парк Республики Беларусь! " +
-//                        "Гомельский дворцово-парковый ансамбль, куда входит немало интересных объектов, включая Дворец Румянцевых – " +
-//                        "Паскевичей и Зимний сад.",
-//                countryRepository.findById(1).get(), false));
-//
-//        cityRepository.save(new City("Гродно",
-//                "Культурная столица Беларуси, столица беларусского католицизма.",
-//                countryRepository.findById(1).get(), false));
-//        cityRepository.save(new City("Брест",
-//                "Уютный компактный городок, примечателен историческими объектами. Брестская крепость - " +
-//                        "один из главных исторических объектов, связанных с историей Великой Отечественной войны.",
-//                countryRepository.findById(1).get(), false));
-//        cityRepository.save(new City("Витебск",
-//                "Когда приезжаешь в Витебск, то сразу ловишь это странное ощущение –" +
-//                        "с одной стороны, кажется, будто находишься дома, а с другой – " +
-//                        "где-то на просторах Центральной Европы.",
-//                countryRepository.findById(1).get(), false));
-//        cityRepository.save(new City("Могилев",
-//                "Маленькая Прага – так назвал Могилев белорусский этнограф и политический деятель Иван Луцкевич, " +
-//                        "впервые прогулявшись по улицам этого города.",
-//                countryRepository.findById(1).get(), false));
-//    }
-
 }

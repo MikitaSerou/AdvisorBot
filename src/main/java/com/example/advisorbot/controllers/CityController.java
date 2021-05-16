@@ -1,13 +1,17 @@
 package com.example.advisorbot.controllers;
 
+import com.example.advisorbot.entity.City;
 import com.example.advisorbot.service.CityService;
 import com.example.advisorbot.service.CountryService;
+import com.example.advisorbot.utils.FormValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -19,18 +23,73 @@ public class CityController {
     private final CountryService countryService;
 
     @Autowired
+    private FormValidator formValidator;
+
+    @Autowired
     public CityController(CityService cityService, CountryService countryService) {
         this.cityService = cityService;
         this.countryService = countryService;
     }
 
 
-    @GetMapping
-    public String citiesListPage(Model model) {
+//    @GetMapping
+//    public String citiesListPage(Model model) {
+//        log.info("GET request /city");
+//
+//        model.addAttribute("cityList", cityService.findAll());
+//
+//        return "city/cities_list";
+//    }
+
+    @GetMapping("/{id}")
+    public String cityPage(@PathVariable Integer id, Model model) {
         log.info("GET request /city");
 
-        model.addAttribute("cityList", cityService.findAll());
+        model.addAttribute("city", cityService.findById(id));
 
         return "city/cities_list";
+    }
+
+//    @DeleteMapping("/delete/{id}")
+//    @ResponseBody
+//    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+//        log.info("DELETE request /city/delete/" + id);
+//        cityService.deleteCityById(id);
+//        return ResponseEntity.ok().body("Book has been deleted successfully.");
+//    }
+
+    @GetMapping("/new")
+    public String cityPage(Model model) {
+        log.info("GET request /city/new");
+        log.info("GET request /city/new" + model);
+        model.addAttribute("countries", countryService.findAll());
+
+        return "city/new_city";
+    }
+
+    @PostMapping(value = "/new")
+    public String addNewCity(@RequestParam(defaultValue = "") String name,
+                             @RequestParam(defaultValue = "") String description,
+                             @RequestParam Integer countryId,
+                             @RequestParam(defaultValue = "false") Boolean isCapital,
+                             Model model) {
+        log.info("POST request /city/new" +
+                "[name: " + name +
+                ", description: " + description +
+                ", country: " + countryId +
+                ", isCapital: " + isCapital + "]");
+
+        Map<String, String> errors = formValidator.cityAddFormValidate(name, description);
+        if (!errors.isEmpty()){
+            for (String errorCode:
+                 errors.keySet()) {
+                model.addAttribute(errorCode, errors.get(errorCode));
+            }
+            return cityPage(model);
+        }
+
+        cityService.saveCity(new City(name, description, countryService.findById(countryId), isCapital));
+
+        return "redirect:/city";
     }
 }

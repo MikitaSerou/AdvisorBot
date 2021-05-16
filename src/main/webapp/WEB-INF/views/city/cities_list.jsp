@@ -24,18 +24,66 @@
 <jsp:include page="../import/navigation_bar.jsp"/>
 
 
-<h1><spring:message code="all.cities"/></h1>
+
 <div class="container">
+
     <div class="row">
-        <div class="col-sm-9">
-            <ul>
-                <c:forEach var="city" items="${cityList}">
-                <li>${city.name}</li>
-</c:forEach>
-            </ul>
-        </div>
-        <div class="col-sm-3">EEE BOIII!!</div>
+        <h1><spring:message code="all.cities"/></h1>
+
+        <table class="table table-hover table-dark"
+               border="1">
+            <thead>
+            <th><spring:message code="id"/></th>
+            <th><spring:message code="name"/></th>
+            <th><spring:message code="country"/></th>
+            <th><spring:message code="capital"/></th>
+            <th><spring:message code="description"/></th>
+            <th><spring:message code="action"/></th>
+            </thead>
+            <c:forEach items="${cityList}" var="city">
+                <tr>
+                    <a href="/city/${city.id}">
+                    <td>${city.id}</td>
+                    <td><h3 style="color: White">${city.name}</h3></td>
+                    <td>${city.country.name} (${city.country.abbreviation.toUpperCase()})</td>
+                    <td>
+                   <c:if test="${city.isCapital}">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="green"
+                            class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                           <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0
+                           0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-
+                           .02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                       </svg>
+                   </c:if>
+                    </td>
+                    <td>${city.description}</td>
+                    </a>
+                    <td>
+                        <a data-method='delete' href='${pageContext.request.contextPath}/city/delete/${city.id}'>link</a>
+                        <button class="delete" data-target="${pageContext.request.contextPath}/city/delete/${city.id}"
+                                data-method="DELETE" data-disabled="true">Delete Article</button>
+                        <a data-confirm="Are you sure?" data-method="delete"
+                           href="${pageContext.request.contextPath}/city/delete/${city.id}" rel="nofollow">Delete</a>
+                        <form action="${pageContext.request.contextPath}/city/delete" method="post">
+                            <button type="submit" class="btn btn-danger"><spring:message code="delete"/></button>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
+
+
+     <%--   <ul>
+            <c:forEach var="city" items="${cityList}">
+                <li>
+                    <h1>${city.name}</h1>
+                    <span>(${city.country.name})</span>
+                </li>
+            </c:forEach>
+        </ul>--%>
     </div>
+
+</div>
 </div>
 </body>
 </html>
