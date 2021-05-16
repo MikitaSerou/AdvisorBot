@@ -24,9 +24,9 @@
 <jsp:include page="../import/navigation_bar.jsp"/>
 
 
-<h1><spring:message code="all.cities"/></h1>
+
 <div class="container">
-    <div class="row">
+    <div class="row"><h1><spring:message code="all.countries"/></h1>
         <div class="col-sm-9">
             <ul>
                 <c:forEach var="country" items="${countriesList}">

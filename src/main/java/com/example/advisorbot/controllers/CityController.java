@@ -32,14 +32,14 @@ public class CityController {
     }
 
 
-//    @GetMapping
-//    public String citiesListPage(Model model) {
-//        log.info("GET request /city");
-//
-//        model.addAttribute("cityList", cityService.findAll());
-//
-//        return "city/cities_list";
-//    }
+    @GetMapping
+    public String citiesListPage(Model model) {
+        log.info("GET request /city");
+
+        model.addAttribute("cityList", cityService.findAll());
+
+        return "city/cities_list";
+    }
 
     @GetMapping("/{id}")
     public String cityPage(@PathVariable Integer id, Model model) {

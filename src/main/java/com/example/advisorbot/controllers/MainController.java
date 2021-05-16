@@ -15,16 +15,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class MainController {
 
-    private final CityService cityService;
-
-    final
-    CountryService countryService;
-
-    @Autowired
-    public MainController(CityService cityService, CountryService countryService) {
-        this.cityService = cityService;
-        this.countryService = countryService;
-    }
-
 
 }
