@@ -47,14 +47,6 @@ public class CountryController {
         return "country/country_cities";
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteCountry(@RequestParam("id") Integer id) {
-        log.info("POST request country/delete" +
-                "[id: " + id + "]");
-
-        return countryService.deleteCountryById(id);
-    }
-
     @GetMapping("/new")
     public String countriesPage(Model model) {
         log.info("GET request /country/new");
@@ -74,7 +66,7 @@ public class CountryController {
                 ", abbreviation: " + abbreviation +
                 ", currencyId: " + currencyId + "]");
 
-        Map<String, String> errors = formValidator.countryAddFormValidate(name, abbreviation);
+        Map<String, String> errors = formValidator.countryFormValidate(name, abbreviation, true);
         if (!errors.isEmpty()) {
             for (String errorCode :
                     errors.keySet()) {
@@ -83,8 +75,52 @@ public class CountryController {
             return countriesPage(model);
         }
 
-        countryService.saveCountry(new Country(name, abbreviation, currencyService.findById(currencyId)));
+        countryService.saveCountry(new Country(name.toUpperCase(), abbreviation.toUpperCase(), currencyService.findById(currencyId)));
 
         return "redirect:/country";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String countryEditPage(@PathVariable Integer id, Model model) {
+        log.info("GET request /country/edit/" + id);
+
+        model.addAttribute("country", countryService.findById(id));
+        model.addAttribute("currencies", currencyService.findAll());
+
+        return "country/country_edit";
+    }
+
+    @PostMapping(value = "/edit/{id}")
+    public String editCountry(@PathVariable("id") Integer id,
+                              @RequestParam(defaultValue = "") String newName,
+                              @RequestParam(defaultValue = "") String newAbbreviation,
+                              @RequestParam(defaultValue = "") Integer newCurrencyId,
+                              Model model) {
+        log.info("POST request country/edit/" + id +
+                "[id: " + id +
+                ", newName: " + newName +
+                ", newAbbreviation: " + newAbbreviation +
+                ", newCurrencyId: " + newCurrencyId + "]");
+
+        Map<String, String> errors = formValidator.countryFormValidate(newName, newAbbreviation, false);
+        if (!errors.isEmpty()) {
+            for (String errorCode :
+                    errors.keySet()) {
+                model.addAttribute(errorCode, errors.get(errorCode));
+            }
+            return countryEditPage(id, model);
+        }
+
+        countryService.updateCountry(id, newName, newAbbreviation, currencyService.findById(newCurrencyId));
+
+        return "redirect:/country";
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteCountry(@RequestParam("id") Integer id) {
+        log.info("POST request country/delete" +
+                "[id: " + id + "]");
+
+        return countryService.deleteCountryById(id);
     }
 }

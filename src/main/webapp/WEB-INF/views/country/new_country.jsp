@@ -56,6 +56,7 @@
                 <h4 id="name"><spring:message code="name"/>:</h4>
                 <p class="error">${empty_name}</p>
                 <p class="error">${not_unique_name}</p>
+                <p class="error">${not_cyrillic_name}</p>
                 <input  type="text" class="form-control" name="name" minlength="3"
                         placeholder="<spring:message code="name"/>"/>
                 <br/>
@@ -63,14 +64,14 @@
                 <select name="currencyId" class="form-select" aria-label="Default select example">
                     <c:forEach items="${currencies}" var="currency">
                         <option name="countryId" value=${currency.id}>
-                                ${currency.name}</option>
+                                ${currency.name} (${currency.iso})</option>
                     </c:forEach>
                 </select>
                 <br/>
                 <h4 id="description"><spring:message code="abbreviation"/>:</h4>
                 <p class="error">${empty_abbreviation}</p>
                 <p class="error">${invalid_abbreviation}</p>
-                <input  type="text" class="form-control" name="abbreviation" maxlength="3"
+                <input  type="text" class="form-control" name="abbreviation" maxlength="2"
                         placeholder="<spring:message code="abbreviation"/>"/>
                 <br/>
                 <div class="d-grid gap-2 col-6 mx-auto">

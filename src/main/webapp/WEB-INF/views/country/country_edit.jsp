@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/x-icon"
           href="<spring:url value='/images/favicon.ico/'/>"/>
-    <title>${city.name} - <spring:message code="edit.city"/></title>
+    <title>${country.name} - <spring:message code="edit.country"/></title>
     <link href='<spring:url value="/css/bootstrap.css"/>' rel="stylesheet"/>
 
     <script src="http://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
@@ -38,8 +38,8 @@
                      0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2
                      0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"></path>
                 </svg>
-                <span style="color: crimson; font-weight: bold;">${city.name}</span>&nbsp;-&nbsp;
-                <spring:message code="edit.city"/>
+                <span style="color: crimson; font-weight: bold;">${country.name}</span>&nbsp;-&nbsp;
+                <spring:message code="edit.country"/>
                 <br/>
                 <br/>
             </h1>
@@ -49,66 +49,28 @@
                     margin-left: 5px;
                 }
             </style>
-            <form id="city_form" action="${pageContext.request.contextPath}/city/edit/${city.id}" method="post">
+            <form id="country_form" action="${pageContext.request.contextPath}/country/edit/${country.id}" method="post">
                 <h4 id="name"><spring:message code="new.name"/>:</h4>
                 <p class="error">${empty_name}</p>
                 <p class="error">${not_cyrillic_name}</p>
-                <input type="text" class="form-control" name="newName" minlength="3"
-                       placeholder="${city.name.toUpperCase()}" value="${city.name.toUpperCase()}"/>
+                <input type="text" class="form-control" name="newName"
+                       placeholder="${country.name.toUpperCase()}" value="${country.name.toUpperCase()}"/>
+                <h4 id="abbreviation"><spring:message code="abbreviation"/>:</h4>
+                <p class="error">${empty_abbreviation}</p>
+                <p class="error">${invalid_abbreviation}</p>
+                <input type="text" class="form-control" name="newAbbreviation"
+                       placeholder="${country.abbreviation.toUpperCase()}"
+                       value="${country.abbreviation.toUpperCase()}" maxlength="2"/>
                 <br/>
-                <h4><spring:message code="country"/>:</h4>
-                <select name="newCountryId" class="form-select" aria-label="Default select example">
-                    <option selected name="newCountryId" value=${city.country.id}>${city.country.name}</option>
-                    <c:forEach items="${countries}" var="country">
-                        <c:if test="${!city.country.equals(country)}">
-                            <option name="newCountryId" value=${country.id}>${country.name}</option>
+                <h4><spring:message code="currency"/>:</h4>
+                <select name="newCurrencyId" class="form-select" aria-label="Default select example">
+                    <option selected name="newCurrencyId" value=${country.currency.id}>${country.currency.name} (${country.currency.iso})</option>
+                    <c:forEach items="${currencies}" var="currency">
+                        <c:if test="${!country.currency.equals(currency)}">
+                            <option name="newCurrencyId" value=${currency.id}>${currency.name} (${currency.iso})</option>
                         </c:if>
                     </c:forEach>
                 </select>
-                <br/>
-                <h4><spring:message code="is.capital"/>:</h4>
-                <c:if test="${city.isCapital}">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="newCapitalStatus" value="true"
-                               id="flexRadioDefault2"
-                               checked>
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            <spring:message code="true"/>
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="newCapitalStatus" value="false"
-                               id="flexRadioDefault3">
-                        <label class="form-check-label" for="flexRadioDefault3">
-                            <spring:message code="false"/>
-                        </label>
-                    </div>
-                </c:if>
-                <c:if test="${!city.isCapital}">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="newCapitalStatus" value="true"
-                               id="flexRadioDefault4">
-                        <label class="form-check-label" for="flexRadioDefault4">
-                            <spring:message code="true"/>
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="newCapitalStatus" value="false"
-                               id="flexRadioDefault5"
-                               checked>
-                        <label class="form-check-label" for="flexRadioDefault5">
-                            <spring:message code="false"/>
-                        </label>
-                    </div>
-                </c:if>
-
-                <br/>
-                <h4 id="newDescription"><spring:message code="new.description"/>:</h4>
-                <p class="error">${empty_description}</p>
-                <div class="form-group">
-                    <textarea name="newDescription" class="form-control" id="exampleFormControlTextarea1"
-                              placeholder="${city.description}" rows="3">${city.description}</textarea>
-                </div>
                 <br/>
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button id="btnSubmit" class="btn btn-warning" type="submit" formmethod="post">
@@ -122,7 +84,7 @@
                                         1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0
                                         1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"></path>
                         </svg>
-                        <spring:message code="edit.city"/></button>
+                        <spring:message code="edit.country"/></button>
                 </div>
             </form>
         </div>

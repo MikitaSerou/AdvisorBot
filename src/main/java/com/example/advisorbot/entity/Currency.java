@@ -11,12 +11,16 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @ToString(exclude = {"countries"})
 public class Currency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "iso")
+    private String iso;
 
     @Column(name = "name", nullable = false, unique = true)
     @NotEmpty(message="Введите название")

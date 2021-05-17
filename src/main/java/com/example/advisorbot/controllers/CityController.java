@@ -58,7 +58,7 @@ public class CityController {
                 ", countryId: " + countryId +
                 ", isCapital: " + isCapital + "]");
 
-        Map<String, String> errors = formValidator.cityAddFormValidate(name, description);
+        Map<String, String> errors = formValidator.cityFormValidate(name, description, true);
         if (!errors.isEmpty()) {
             for (String errorCode :
                     errors.keySet()) {
@@ -88,16 +88,25 @@ public class CityController {
                            @RequestParam(defaultValue = "") String newName,
                            @RequestParam(defaultValue = "") String newDescription,
                            @RequestParam(defaultValue = "") Integer newCountryId,
-                           @RequestParam(defaultValue = "") Boolean newCapitalStatus) {
+                           @RequestParam(defaultValue = "") Boolean newCapitalStatus,
+                           Model model) {
         log.info("POST request city/edit/" + id +
                 "[id: " + id +
                 ", newName: " + newName +
                 ", newDescription: " + newDescription +
                 ", newCountryId: " + newCountryId +
-                ", newCapitalStatus: " + newCapitalStatus+ "]");
-//TODO валидация формы
-        //TODO Не забыть про upper case
-       // productService.editProductFromCategory(productName, newName, description, ingredientsIds);
+                ", newCapitalStatus: " + newCapitalStatus + "]");
+
+        Map<String, String> errors = formValidator.cityFormValidate(newName, newDescription, false);
+        if (!errors.isEmpty()) {
+            for (String errorCode :
+                    errors.keySet()) {
+                model.addAttribute(errorCode, errors.get(errorCode));
+            }
+            return cityEditPage(id, model);
+        }
+
+        cityService.updateCity(id, newName, newDescription, countryService.findById(newCountryId), newCapitalStatus);
 
         return "redirect:/city";
     }

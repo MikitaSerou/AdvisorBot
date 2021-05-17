@@ -1,12 +1,14 @@
 package com.example.advisorbot.service;
 
 import com.example.advisorbot.entity.Country;
+import com.example.advisorbot.entity.Currency;
 import com.example.advisorbot.repository.CountryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,9 +36,55 @@ public class CountryService {
         return country.orElse(null);
     }
 
+    public Country findByName(String name) {
+        log.info("findByName(String " + name + ")");
+        Country country = countryRepository.findByName(name.toUpperCase());
+
+        if (country != null) {
+            log.info("Country with this name: \"" + name + "\" has been found: " + country.toString());
+            return country;
+        } else {
+            log.error("Country with name (" + name + ") is not exist");
+            return null;
+        }
+    }
+
     public void saveCountry(Country country) {
-        log.info("Creating new Entity(" + country + ")...");
-        countryRepository.save(country);
+        log.info("saveCountry(Country " + country + ")");
+        if (country.getCurrency() != null && country.getAbbreviation() != null &&
+                country.getName() != null) {
+            log.info("Creating new Entity(" + country + ")...");
+            countryRepository.save(country);
+        } else {
+            log.error("Not all necessary fields defined");
+        }
+    }
+
+    @Transactional
+    public void updateCountry(Integer id, String newName, String newAbbreviation, Currency newCurrency) {
+        log.info("updateCountry(Integer " + id +
+                ", String " + newName +
+                ", String " + newAbbreviation +
+                ", Currency " + newCurrency + ")");
+        Country countryForUpdate = findById(id);
+        if (countryForUpdate != null) {
+            log.info("Edit country: " + countryForUpdate.toString());
+            if (!newName.equals("") && !countryForUpdate.getName().equals(newName)) {
+                countryForUpdate.setName(newName.toUpperCase());
+            }
+            if (!newAbbreviation.equals("") &&
+                    !countryForUpdate.getAbbreviation().equals(newAbbreviation)
+            ) {
+                countryForUpdate.setAbbreviation(newAbbreviation);
+            }
+            if (!newCurrency.equals(countryForUpdate.getCurrency())) {
+                countryForUpdate.setCurrency(newCurrency);
+            }
+            log.info("Edit and save country: " + countryForUpdate.toString());
+            countryRepository.save(countryForUpdate);
+        } else {
+            log.error("Country with this id (" + id + ") is not exist");
+        }
     }
 
     public ResponseEntity<String> deleteCountryById(Integer id) {

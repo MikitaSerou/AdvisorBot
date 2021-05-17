@@ -1,12 +1,14 @@
 package com.example.advisorbot.service;
 
 import com.example.advisorbot.entity.City;
+import com.example.advisorbot.entity.Country;
 import com.example.advisorbot.repository.CityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,8 +34,14 @@ public class CityService {
     }
 
     public void saveCity(City city) {
-        log.info("Creating new Entity(" + city + ")...");
-        cityRepository.save(city);
+        log.info("saveCity(City " + city + ")");
+        if (city.getCountry() != null && city.getIsCapital() != null &&
+                city.getName() != null && city.getDescription() != null) {
+            log.info("Creating new Entity(" + city + ")...");
+            cityRepository.save(city);
+        } else {
+            log.error("Not all necessary fields defined");
+        }
     }
 
     public List<City> findByName(String name) {
@@ -45,11 +53,10 @@ public class CityService {
             return Collections.singletonList(city);
         }
 
-
         List<City> cities = null;
         if (name.length() >= 3) {
             log.info("Search for cities with similar names");
-            cities = cityRepository.find10CitiesWithSimilarNames(name.substring(0, 3));
+            cities = cityRepository.findCitiesWithSimilarNames(name.substring(0, 3).toUpperCase());
             log.info("Cities with similar names: " + cities);
         }
 
@@ -58,6 +65,37 @@ public class CityService {
             return null;
         }
         return cities;
+    }
+
+    @Transactional
+    public void updateCity(Integer id, String newName, String newDescription, Country newCountry,
+                           Boolean newCapitalStatus) {
+        log.info("updateCity(Integer " + id +
+                ", String " + newName +
+                ", String " + newDescription +
+                ", Country " + newCountry +
+                ", Boolean " + newCapitalStatus + ")");
+
+        City cityForUpdate = findById(id);
+        if (cityForUpdate != null) {
+            log.info("Edit city: " + cityForUpdate.toString());
+            if (!newName.equals("") && !cityForUpdate.getName().equals(newName)) {
+                cityForUpdate.setName(newName.toUpperCase());
+            }
+            if (!newDescription.equals("") && !cityForUpdate.getDescription().equals(newDescription)) {
+                cityForUpdate.setDescription(newDescription);
+            }
+            if (!newCountry.equals(cityForUpdate.getCountry())) {
+                cityForUpdate.setCountry(newCountry);
+            }
+            if (!newCapitalStatus.equals(cityForUpdate.getIsCapital())) {
+                cityForUpdate.setIsCapital(newCapitalStatus);
+            }
+            log.info("Edit and save city: " + cityForUpdate.toString());
+            cityRepository.save(cityForUpdate);
+        } else {
+            log.error("City with this id (" + id + ") is not exist");
+        }
     }
 
     public List<City> findAll() {

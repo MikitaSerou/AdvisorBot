@@ -137,11 +137,11 @@
                             });
                             // Called on success of file upload
                             ajaxReq.done(function (msg) {
-                                $('#${city.id}block').hide(1000);
+                                $('#${city.id}block').hide(500);
                             });
                             // Called on failure of file upload
                             ajaxReq.fail(function (jqXHR) {
-                                $('#${city.id}block').hide(1000);
+                                $('#${city.id}block').hide(500);
                             });
                         });
                     });

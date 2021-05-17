@@ -15,6 +15,6 @@ public interface CityRepository extends PagingAndSortingRepository<City, Integer
 
     //select cities with similar names
     @Query("SELECT c FROM City c WHERE c.name lIKE %:halfOfName%")
-    List<City> find10CitiesWithSimilarNames(@Param("halfOfName") String halfOfName);
+    List<City> findCitiesWithSimilarNames(@Param("halfOfName") String halfOfName);
 
 }

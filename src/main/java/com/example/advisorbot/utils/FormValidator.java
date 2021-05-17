@@ -18,13 +18,13 @@ public class FormValidator {
     private CityService cityService;
 
     @Autowired
-    CountryService countryService;
+    private CountryService countryService;
 
 
-    public Map<String, String> cityAddFormValidate(String name, String description) {
+    public Map<String, String> cityFormValidate(String name, String description, Boolean addForm) {
         log.info("cityAddFormValidate(String" + name + "," + " String " + description + ")");
         Map<String, String> errors = new HashMap<>();
-        if (cityService.findByName(name) != null) {
+        if (addForm && cityService.findByName(name) != null) {
             log.error("There is a city with that name");
             errors.put("not_unique_name", "Есть город с таким названием");
         }
@@ -32,16 +32,25 @@ public class FormValidator {
             log.error("City name not specified");
             errors.put("empty_name", "Введите название города");
         }
+        if (!Pattern.matches("^[а-яА-ЯёЁa]+$", name)) {
+            log.error("City name not Cyrillic");
+            errors.put("not_cyrillic_name", "Только кириллица");
+        }
         if (description.equals("")) {
             log.error("City description not entered");
             errors.put("empty_description", "Введите описание");
         }
+        if (!Pattern.matches("^[а-яА-ЯёЁa]+$", description)) {
+            log.error("City description not Cyrillic");
+            errors.put("empty_description", "Только кириллица");
+        }
+
         return errors;
     }
 
-    public Map<String, String> countryAddFormValidate(String name, String abbreviation) {
+    public Map<String, String> countryFormValidate(String name, String abbreviation, Boolean addForm) {
         Map<String, String> errors = new HashMap<>();
-        if (cityService.findByName(name) != null) {
+        if (addForm && countryService.findByName(name) != null) {
             log.error("There is a country with that name");
             errors.put("not_unique_name", "Есть страна с таким названием");
         }
@@ -49,15 +58,20 @@ public class FormValidator {
             log.error("Country name not specified");
             errors.put("empty_name", "Введите название страны");
         }
+        if (!Pattern.matches("^[а-яА-ЯёЁa]+$", name)) {
+            log.error("Country name not Cyrillic");
+            errors.put("not_cyrillic_name", "Только кириллица");
+        }
         if (abbreviation.equals("")) {
             log.error("Country abbreviation not specified");
             errors.put("empty_abbreviation", "Введите сокращение");
         }
-        if (!Pattern.matches("[a-zA-Z]{3}", abbreviation)) {
+        if (!Pattern.matches("[a-zA-Z]{2,3}", abbreviation)) {
             log.error("Entered non-latin text");
             errors.put("invalid_abbreviation", "Сокращение должно быть записано латиницей");
         }
 
         return errors;
     }
+
 }

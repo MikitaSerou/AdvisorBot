@@ -54,6 +54,7 @@
                 <h4 id="name"><spring:message code="name"/>:</h4>
                 <p class="error">${empty_name}</p>
                 <p class="error">${not_unique_name}</p>
+                <p class="error">${not_cyrillic_name}</p>
                 <input type="text" class="form-control" name="name" minlength="3"
                        placeholder="<spring:message code="name"/>"/>
                 <br/>
