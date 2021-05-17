@@ -89,8 +89,8 @@ public class MessageDistributor {
         if (city.getIsCapital()) {
             cityAnswer.append(EmojiParser.parseToUnicode("Столица :crown:\n"));
         }
-        cityAnswer.append(EmojiParser.parseToUnicode("Валюта:moneybag:: (" +
-                city.getCountry().getCurrency().getName() + ")\n\n" +
+        cityAnswer.append(EmojiParser.parseToUnicode("Валюта: " +
+                city.getCountry().getCurrency().getName() + ":moneybag:\n\n" +
                 "<i>" + city.getDescription() + "</i>\n\n" +
                 "<a href='" + Links.WIKIPEDIA.getLink() + city.getName() +
                 "'>Полная информация</a>"
