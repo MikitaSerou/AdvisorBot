@@ -84,7 +84,8 @@ public class MessageDistributor {
     private String cityMessageConstructor(City city) {
         StringBuilder cityAnswer = new StringBuilder();
 
-        cityAnswer.append("<b>").append(city.getName()).append("</b>\n\n").append("Страна: ").append(EmojiParser.parseToUnicode(city.getCountry().getName() + ":" +
+        cityAnswer.append("<b>").append(city.getName()).append("</b>\n\n").append("Страна: ")
+                .append(EmojiParser.parseToUnicode(city.getCountry().getName() + ":" +
                 city.getCountry().getAbbreviation() + ":\n"));
         if (city.getIsCapital()) {
             cityAnswer.append(EmojiParser.parseToUnicode("Столица :crown:\n"));
@@ -92,7 +93,7 @@ public class MessageDistributor {
         cityAnswer.append(EmojiParser.parseToUnicode("Валюта: " +
                 city.getCountry().getCurrency().getName() + ":moneybag:\n\n" +
                 "<i>" + city.getDescription() + "</i>\n\n" +
-                "<a href='" + Links.WIKIPEDIA.getLink() + city.getName() +
+                "<a href='" + Links.WIKIPEDIA.getLink() + city.getName().toLowerCase() +
                 "'>Полная информация</a>"
         ));
 

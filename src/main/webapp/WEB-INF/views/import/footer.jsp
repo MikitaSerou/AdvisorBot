@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Footer</title>
     <link href='<spring:url value="/css/bootstrap.css"/>' rel="stylesheet"/>
 
     <script src="http://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>

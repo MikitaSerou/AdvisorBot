@@ -38,7 +38,7 @@ public class CityService {
 
     public List<City> findByName(String name) {
         log.info("findByName(String " + name + ")");
-        City city = cityRepository.findCityByName(name);
+        City city = cityRepository.findCityByName(name.toUpperCase());
 
         if (city != null) {
             log.info("Cities with this name: \"" + name + "\" has been found");
@@ -80,5 +80,4 @@ public class CityService {
 
         return new ResponseEntity<>("City deleted successfully.", HttpStatus.OK);
     }
-
 }

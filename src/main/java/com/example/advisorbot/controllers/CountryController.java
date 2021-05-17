@@ -7,6 +7,7 @@ import com.example.advisorbot.service.CurrencyService;
 import com.example.advisorbot.utils.FormValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,14 @@ public class CountryController {
         model.addAttribute("citiesOfCountry", country.getCities());
 
         return "country/country_cities";
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> uploadProductImage(@RequestParam("id") Integer id) {
+        log.info("POST request country/delete" +
+                "[id: " + id + "]");
+
+        return countryService.deleteCountryById(id);
     }
 
     @GetMapping("/new")

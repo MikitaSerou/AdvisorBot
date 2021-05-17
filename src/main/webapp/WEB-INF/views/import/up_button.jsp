@@ -7,16 +7,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>up buttons</title>
     <link href='<spring:url value="/css/bootstrap.css"/>' rel="stylesheet"/>
 
     <script src="http://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             type="text/javascript"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
-   <%-- <script src="<c:url value="/js/scrollButtons.js"/>"></script>--%>
+    <script src="<c:url value="/js/scrollButtons.js"/>"></script>
 </head>
-<body>
 <style>
     .nav_up{
         padding:7px;
@@ -35,6 +34,7 @@
         filter:progid:DXImageTransform.Microsoft.Alpha(opacity=70);
     }
 </style>
+<body>
 <div style="display:none;" class="nav_up" id="nav_up"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                            fill="#CCC"
                                                            class="bi bi-chevron-up" viewBox="0 0 16 16">

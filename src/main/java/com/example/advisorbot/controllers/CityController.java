@@ -84,7 +84,7 @@ public class CityController {
             return cityPage(model);
         }
 
-        cityService.saveCity(new City(name, description, countryService.findById(countryId), isCapital));
+        cityService.saveCity(new City(name.toUpperCase(), description, countryService.findById(countryId), isCapital));
 
         return "redirect:/city";
     }
