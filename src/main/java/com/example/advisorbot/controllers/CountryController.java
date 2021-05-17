@@ -48,7 +48,7 @@ public class CountryController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> uploadProductImage(@RequestParam("id") Integer id) {
+    public ResponseEntity<String> deleteCountry(@RequestParam("id") Integer id) {
         log.info("POST request country/delete" +
                 "[id: " + id + "]");
 

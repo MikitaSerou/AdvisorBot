@@ -37,25 +37,8 @@ public class CityController {
         return "city/cities_list";
     }
 
-    @GetMapping("/{id}")
-    public String cityPage(@PathVariable Integer id, Model model) {
-        log.info("GET request /city");
-
-        model.addAttribute("city", cityService.findById(id));
-
-        return "city/cities_list";
-    }
-
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> uploadProductImage(@RequestParam("id") Integer id) {
-        log.info("POST request city/delete" +
-                "[id: " + id + "]");
-
-        return cityService.deleteCityById(id);
-    }
-
     @GetMapping("/new")
-    public String cityPage(Model model) {
+    public String newCityPage(Model model) {
         log.info("GET request /city/new");
         log.info("GET request /city/new " + model);
         model.addAttribute("countries", countryService.findAll());
@@ -81,11 +64,49 @@ public class CityController {
                     errors.keySet()) {
                 model.addAttribute(errorCode, errors.get(errorCode));
             }
-            return cityPage(model);
+            return newCityPage(model);
         }
 
         cityService.saveCity(new City(name.toUpperCase(), description, countryService.findById(countryId), isCapital));
 
         return "redirect:/city";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String cityEditPage(@PathVariable Integer id, Model model) {
+        log.info("GET request /city/edit/" + id);
+
+        model.addAttribute("city", cityService.findById(id));
+        model.addAttribute("countries", countryService.findAll());
+
+        return "city/city_edit";
+    }
+
+
+    @PostMapping(value = "/edit/{id}")
+    public String editCity(@PathVariable("id") Integer id,
+                           @RequestParam(defaultValue = "") String newName,
+                           @RequestParam(defaultValue = "") String newDescription,
+                           @RequestParam(defaultValue = "") Integer newCountryId,
+                           @RequestParam(defaultValue = "") Boolean newCapitalStatus) {
+        log.info("POST request city/edit/" + id +
+                "[id: " + id +
+                ", newName: " + newName +
+                ", newDescription: " + newDescription +
+                ", newCountryId: " + newCountryId +
+                ", newCapitalStatus: " + newCapitalStatus+ "]");
+//TODO валидация формы
+        //TODO Не забыть про upper case
+       // productService.editProductFromCategory(productName, newName, description, ingredientsIds);
+
+        return "redirect:/city";
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteCity(@RequestParam("id") Integer id) {
+        log.info("POST request city/delete" +
+                "[id: " + id + "]");
+
+        return cityService.deleteCityById(id);
     }
 }
