@@ -21,18 +21,18 @@
 </head>
 <body>
 
-<jsp:include page="import/navigation_bar.jsp" />
+<jsp:include page="import/navigation_bar.jsp"/>
 
 
 <h1><spring:message code="main.page"/></h1>
 <div class="container" <%--style="min-height: 80%"--%>>
     <div class="row">
-       <img src='<spring:url value="https://www-cdn.intex-press.by/wp-content/uploads/2018/08/5-6.jpg"/>'
-                                   width="100%" class="rounded" alt="kek">
+
 
     </div>
 </div>
-<jsp:include page="import/footer.jsp" />
+</div>
+<jsp:include page="import/footer.jsp"/>
 </body>
 </html>
 

@@ -36,7 +36,6 @@
                 </svg>
                 <spring:message code="all.cities"/></button>
         </a>
-
         <a href="${pageContext.request.contextPath}/country">
             <button type="button" class="btn btn-secondary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-globe"

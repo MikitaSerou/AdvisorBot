@@ -85,7 +85,6 @@
         </div>
     </div>
 </div>
-</div>
 <jsp:include page="../import/footer.jsp"/>
 </body>
 </html>

@@ -4,6 +4,8 @@ import com.example.advisorbot.entity.City;
 import com.example.advisorbot.repository.CityRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -34,11 +36,6 @@ public class CityService {
         cityRepository.save(city);
     }
 
-    public void deleteCityById(Integer id) {
-        log.info("deleteCityById(Integer " + id + ")");
-        cityRepository.deleteById(id);
-    }
-
     public List<City> findByName(String name) {
         log.info("findByName(String " + name + ")");
         City city = cityRepository.findCityByName(name);
@@ -66,4 +63,22 @@ public class CityService {
     public List<City> findAll() {
         return (List<City>) cityRepository.findAll();
     }
+
+    public ResponseEntity<String> deleteCityById(Integer id) {
+        log.info("deleteCityById(Integer " + id + ")");
+        if (id == null) {
+            log.error("City id (" + id + ") is not defined");
+            return new ResponseEntity<>("Invalid Id: " + id, HttpStatus.BAD_REQUEST);
+        } else {
+            if (!cityRepository.existsById(id)) {
+                log.error("City with this id (" + id + ") is not exist");
+                return new ResponseEntity<>("No city with this id:" + id, HttpStatus.BAD_REQUEST);
+            }
+        }
+        log.info("Delete city with id: " + id);
+        cityRepository.deleteById(id);
+
+        return new ResponseEntity<>("City deleted successfully.", HttpStatus.OK);
+    }
+
 }

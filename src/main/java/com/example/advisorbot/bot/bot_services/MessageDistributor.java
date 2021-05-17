@@ -73,7 +73,8 @@ public class MessageDistributor {
                 message.setReplyMarkup(keyboardsProvider.getKeyboardWithSimilarCitiesLinks(searchedCity));
             }
         } else {
-            message.setText(EmojiParser.parseToUnicode("Не можем ничего вам рассказать про этот город. И город ли это вообще?:rolling_eyes:"));
+            message.setText(EmojiParser.parseToUnicode("Не можем ничего вам рассказать про этот город " +
+                    "(может просто пока мы не добавили его в базу данных) :rolling_eyes:"));
         }
 
         return message;
@@ -83,8 +84,7 @@ public class MessageDistributor {
     private String cityMessageConstructor(City city) {
         StringBuilder cityAnswer = new StringBuilder();
 
-        cityAnswer.append("<b>" + city.getName() + "</b>\n\n" +
-                "Страна: " + EmojiParser.parseToUnicode(city.getCountry().getName()+":" +
+        cityAnswer.append("<b>").append(city.getName()).append("</b>\n\n").append("Страна: ").append(EmojiParser.parseToUnicode(city.getCountry().getName() + ":" +
                 city.getCountry().getAbbreviation() + ":\n"));
         if (city.getIsCapital()) {
             cityAnswer.append(EmojiParser.parseToUnicode("Столица :crown:\n"));

@@ -6,6 +6,7 @@ import com.example.advisorbot.service.CountryService;
 import com.example.advisorbot.utils.FormValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -45,13 +46,13 @@ public class CityController {
         return "city/cities_list";
     }
 
-//    @DeleteMapping("/delete/{id}")
-//    @ResponseBody
-//    public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
-//        log.info("DELETE request /city/delete/" + id);
-//        cityService.deleteCityById(id);
-//        return ResponseEntity.ok().body("Book has been deleted successfully.");
-//    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> uploadProductImage(@RequestParam("id") Integer id) {
+        log.info("POST request city/delete" +
+                "[id: " + id + "]");
+
+        return cityService.deleteCityById(id);
+    }
 
     @GetMapping("/new")
     public String cityPage(Model model) {

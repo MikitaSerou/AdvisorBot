@@ -25,7 +25,7 @@
 <div class="container">
     <div class="row">
         <h1><spring:message code="all.cities"/></h1>
-        <table class="table table-hover table-dark"
+        <table  class="table table-hover table-dark"
                border="1">
             <thead>
             <th><spring:message code="id"/></th>
@@ -36,7 +36,7 @@
             <th><spring:message code="action"/></th>
             </thead>
             <c:forEach items="${cityList}" var="city">
-                <tr>
+                <tr id="${city.id}block">
                     <a href="/city/${city.id}">
                         <td>${city.id}</td>
                         <td><h3 style="color: White">${city.name}</h3></td>
@@ -54,18 +54,70 @@
                         <td>${city.description}</td>
                     </a>
                     <td>
-                        <a data-method='delete'
-                           href='${pageContext.request.contextPath}/city/delete/${city.id}'>link</a>
-                        <button class="delete" data-target="${pageContext.request.contextPath}/city/delete/${city.id}"
-                                data-method="DELETE" data-disabled="true">Delete Article
-                        </button>
-                        <a data-confirm="Are you sure?" data-method="delete"
-                           href="${pageContext.request.contextPath}/city/delete/${city.id}" rel="nofollow">Delete</a>
-                        <form action="${pageContext.request.contextPath}/city/delete" method="post">
-                            <button type="submit" class="btn btn-danger"><spring:message code="delete"/></button>
+                        <form id="deleteCityForm${city.id}" name="deleteCityForm${city.id}"
+                              action="${pageContext.request.contextPath}/city/delete"
+                              method="post" enctype="text/plain">
+                            <input id="url" hidden name="url"
+                                   value="${pageContext.request.contextPath}/city/delete">
+                            <input hidden type="text" name="id" value="${city.id}"/>
+
+                            <div class="input-group">
+                                <button id="deleteCityButton${city.id}" form="deleteCityForm${city.id}"
+                                        class="btn btn-danger" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                         class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2
+                                         2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1
+                                          1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1
+                                           .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3
+                                            .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"></path>
+                                    </svg>
+                                    <spring:message code="delete"/>
+                                </button>
+                            </div>
                         </form>
+                        <div id="alertMsg" class="error"></div>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $("#inputProductName").keyup(function () {
+                                    var name = $(this).val();
+                                    $("#productNameToFile").val(name);
+                                }).keyup();
+                            });
+                        </script>
                     </td>
-                </tr>
+                </tr>  <script>
+                $(function() {
+                    $('button#deleteCityButton${city.id}[type=submit]').click(function(e) {
+                        e.preventDefault();
+                        var form = document.forms['deleteCityForm${city.id}'];
+                        var formData = new FormData(form);
+                        // Ajax call for file DELETE
+                        var ajaxReq = $.ajax({
+                            url : document.getElementById('url').value,
+                            type : 'DELETE',
+                            data : formData,
+                            cache : false,
+                            contentType : false,
+                            processData : false,
+                            xhr: function(){
+                                //Get XmlHttpRequest object
+                                var xhr = $.ajaxSettings.xhr() ;
+                                //Set onprogress event handler
+                                return xhr ;
+                            },
+                        });
+                        // Called on success of file upload
+                        ajaxReq.done(function(msg) {
+                            $('#${city.id}block').hide(1000);
+                        });
+                        // Called on failure of file upload
+                        ajaxReq.fail(function(jqXHR) {
+                            $('#${city.id}block').hide(1000);
+                        });
+                    });
+                });
+            </script>
             </c:forEach>
         </table>
     </div>
