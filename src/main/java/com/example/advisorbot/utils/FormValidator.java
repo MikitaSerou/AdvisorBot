@@ -2,7 +2,7 @@ package com.example.advisorbot.utils;
 
 import com.example.advisorbot.service.CityService;
 import com.example.advisorbot.service.CountryService;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +11,9 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 @Component
-@Slf4j
 public class FormValidator {
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(FormValidator.class);
     @Autowired
     private CityService cityService;
 

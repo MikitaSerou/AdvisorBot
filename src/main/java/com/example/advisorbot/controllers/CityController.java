@@ -4,7 +4,7 @@ import com.example.advisorbot.entity.City;
 import com.example.advisorbot.service.CityService;
 import com.example.advisorbot.service.CountryService;
 import com.example.advisorbot.utils.FormValidator;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @Controller
-@Slf4j
 @RequestMapping("/city")
 public class CityController {
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(CityController.class);
     @Autowired
     private CityService cityService;
 

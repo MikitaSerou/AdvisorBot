@@ -5,7 +5,7 @@ import com.example.advisorbot.bot.enums.Links;
 import com.example.advisorbot.entity.City;
 import com.example.advisorbot.service.CityService;
 import com.vdurmont.emoji.EmojiParser;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -16,9 +16,9 @@ import java.util.List;
 
 
 @Service
-@Slf4j
 public class MessageDistributor {
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(MessageDistributor.class);
     private final CityService cityService;
 
     private final KeyboardsProvider keyboardsProvider;

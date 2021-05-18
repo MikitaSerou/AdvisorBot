@@ -1,18 +1,18 @@
 package com.example.advisorbot.bot.enums;
 
 import com.vdurmont.emoji.EmojiParser;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 
 import java.util.Arrays;
 import java.util.Optional;
 
-@Slf4j
 public enum Commands {
     START("/start", "Начнем же!"),
     HELP("/help", "Просто введите город по которому хотите получить информацию." +
             "Если это возможно - мы подберем вам похожие результаты" + EmojiParser.parseToUnicode(":slight_smile:")),
     NOT_FOUND("/", "Нет такой команды.");
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(Commands.class);
     private final String command;
     private final String answer;
 
