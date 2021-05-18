@@ -11,4 +11,10 @@ public class MainController {
 
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(MainController.class);
+
+    @RequestMapping("/")
+    public String home() {
+
+        return "index";
+    }
 }
