@@ -9,5 +9,4 @@ public class AdvisorBotApplication{
     public static void main(String[] args) {
         SpringApplication.run(AdvisorBotApplication.class, args);
     }
-
 }
