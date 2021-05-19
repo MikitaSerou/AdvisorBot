@@ -1,18 +1,3 @@
-create table COUNTRY
-(
-    ID           INTEGER auto_increment
-        primary key,
-    ABBREVIATION VARCHAR(255) not null
-        constraint UK_5OTJPDXWU9LX2C9JSTKF399GY
-            unique,
-    NAME         VARCHAR(255) not null
-        constraint UK_LLIDYP77H6XKEOKPBMOY710D4
-            unique,
-    CURRENCY_ID  INTEGER,
-    constraint FKFNSA0KDNU5CG50IRUP7H29TMJ
-        foreign key (CURRENCY_ID) references CURRENCY (ID)
-);
-
 INSERT INTO PUBLIC.COUNTRY (ID, ABBREVIATION, NAME, CURRENCY_ID) VALUES (1, 'by', 'БЕЛАРУСЬ', 172);
 INSERT INTO PUBLIC.COUNTRY (ID, ABBREVIATION, NAME, CURRENCY_ID) VALUES (2, 'RU', 'Россия', 264);
 INSERT INTO PUBLIC.COUNTRY (ID, ABBREVIATION, NAME, CURRENCY_ID) VALUES (3, 'UA', 'Украина', 311);
