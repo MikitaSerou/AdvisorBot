@@ -13,8 +13,10 @@ import java.util.Optional;
 public class CurrencyService {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(CurrencyService.class);
+
     @Autowired
     private CurrencyRepository currencyRepository;
+
 
     public Currency findById(Integer id) {
         log.info("findById(Integer " + id + ")");
@@ -27,7 +29,7 @@ public class CurrencyService {
         return currency.orElse(null);
     }
 
-    public List<Currency> findAll(){
+    public List<Currency> findAll() {
         return (List<Currency>) currencyRepository.findAll();
     }
 }

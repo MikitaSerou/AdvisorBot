@@ -17,7 +17,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/country")
 public class CountryController {
+
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(CountryController.class);
+
     @Autowired
     private CurrencyService currencyService;
 

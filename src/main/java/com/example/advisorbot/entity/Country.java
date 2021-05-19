@@ -13,11 +13,11 @@ public class Country {
     private Integer id;
 
     @Column(name = "name", nullable = false, unique = true)
-    @NotEmpty(message="Введите название")
+    @NotEmpty(message = "Введите название")
     private String name;
 
     @Column(name = "abbreviation", nullable = false, unique = true)
-    @NotEmpty(message="Введите сокращение")
+    @NotEmpty(message = "Введите сокращение")
     private String abbreviation;
 
     @ManyToOne(fetch = FetchType.EAGER,

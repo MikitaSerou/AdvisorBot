@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class MyErrorController implements ErrorController {
 
-    public MyErrorController() {}
+    public MyErrorController() {
+    }
 
     @GetMapping(value = "/error")
     public String handleError(HttpServletRequest request) {
@@ -23,10 +24,9 @@ public class MyErrorController implements ErrorController {
 
             Integer statusCode = Integer.valueOf(status.toString());
 
-            if(statusCode == HttpStatus.NOT_FOUND.value()) {
+            if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "error";
-            }
-            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+            } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 return "error";
             }
         }

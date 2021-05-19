@@ -15,7 +15,7 @@ public class Currency {
     private String iso;
 
     @Column(name = "name", nullable = false, unique = true)
-    @NotEmpty(message="Введите название")
+    @NotEmpty(message = "Введите название")
     private String name;
 
     @OneToMany(mappedBy = "currency", fetch = FetchType.EAGER,

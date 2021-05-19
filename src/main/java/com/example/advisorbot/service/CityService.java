@@ -18,6 +18,7 @@ import java.util.Optional;
 public class CityService {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(CityService.class);
+
     @Autowired
     private CityRepository cityRepository;
 

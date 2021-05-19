@@ -33,29 +33,29 @@ public class MySqlExecutor {
     @PostConstruct
     public void initDataBase() {
         log.info("initDataBase()");
-            log.info("Initialize database...");
-            DataSourceInitializer initializer = new DataSourceInitializer();
-            log.info(dataSource.toString());
-            initializer.setDataSource(this.dataSource);
-            ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
-            try {
-                if (currencyService.findAll().isEmpty()) {
-                    databasePopulator.addScript(
-                            new ClassPathResource("CITIESDB_PUBLIC_CURRENCY.sql"));
-                }
-                if (countryService.findAll().isEmpty()) {
-                    databasePopulator.addScript(
-                            new ClassPathResource("CITIESDB_PUBLIC_COUNTRY.sql"));
-                }
-                if (cityService.findAll().isEmpty()) {
-                    databasePopulator.addScript(
-                            new ClassPathResource("CITIESDB_PUBLIC_CITY.sql"));
-                    initializer.setDatabasePopulator(databasePopulator);
-                }
-                initializer.afterPropertiesSet();
-            } catch (ScriptStatementFailedException e) {
-                log.warn("Database already initialized.");
-                e.printStackTrace();
+        log.info("Initialize database...");
+        DataSourceInitializer initializer = new DataSourceInitializer();
+        log.info(dataSource.toString());
+        initializer.setDataSource(this.dataSource);
+        ResourceDatabasePopulator databasePopulator = new ResourceDatabasePopulator();
+        try {
+            if (currencyService.findAll().isEmpty()) {
+                databasePopulator.addScript(
+                        new ClassPathResource("CITIESDB_PUBLIC_CURRENCY.sql"));
             }
+            if (countryService.findAll().isEmpty()) {
+                databasePopulator.addScript(
+                        new ClassPathResource("CITIESDB_PUBLIC_COUNTRY.sql"));
+            }
+            if (cityService.findAll().isEmpty()) {
+                databasePopulator.addScript(
+                        new ClassPathResource("CITIESDB_PUBLIC_CITY.sql"));
+                initializer.setDatabasePopulator(databasePopulator);
+            }
+            initializer.afterPropertiesSet();
+        } catch (ScriptStatementFailedException e) {
+            log.warn("Database already initialized.");
+            e.printStackTrace();
+        }
     }
 }

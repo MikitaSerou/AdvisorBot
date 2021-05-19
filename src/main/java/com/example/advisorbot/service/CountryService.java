@@ -17,6 +17,7 @@ import java.util.Optional;
 public class CountryService {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(CountryService.class);
+
     @Autowired
     private CountryRepository countryRepository;
 

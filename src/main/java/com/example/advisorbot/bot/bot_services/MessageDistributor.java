@@ -19,18 +19,15 @@ import java.util.List;
 public class MessageDistributor {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(MessageDistributor.class);
-    private final CityService cityService;
 
-    private final KeyboardsProvider keyboardsProvider;
+    @Autowired
+    private CityService cityService;
+
+    @Autowired
+    private KeyboardsProvider keyboardsProvider;
 
     private final List<Commands> allCommands = Arrays.asList(Commands.values());
 
-
-    @Autowired
-    public MessageDistributor(CityService cityService, KeyboardsProvider keyboardsProvider) {
-        this.cityService = cityService;
-        this.keyboardsProvider = keyboardsProvider;
-    }
 
     //Check of the user's request (standard bot commands or not)
     public SendMessage getAnswer(Update update) {
@@ -79,7 +76,6 @@ public class MessageDistributor {
 
         return message;
     }
-
 
     private String cityMessageConstructor(City city) {
         StringBuilder cityAnswer = new StringBuilder();

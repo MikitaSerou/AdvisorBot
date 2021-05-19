@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class FormValidator {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(FormValidator.class);
+
     @Autowired
     private CityService cityService;
 
@@ -73,5 +74,4 @@ public class FormValidator {
 
         return errors;
     }
-
 }

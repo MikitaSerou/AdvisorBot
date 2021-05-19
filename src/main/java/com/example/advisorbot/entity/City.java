@@ -11,11 +11,11 @@ public class City {
     private Integer id;
 
     @Column(name = "name", nullable = false, unique = true)
-    @NotEmpty(message="Введите название")
+    @NotEmpty(message = "Введите название")
     private String name;
 
     @Column(name = "description")
-    @NotEmpty(message="Введите описание")
+    @NotEmpty(message = "Введите описание")
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER,

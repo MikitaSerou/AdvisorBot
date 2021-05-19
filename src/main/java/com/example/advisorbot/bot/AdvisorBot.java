@@ -17,6 +17,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class AdvisorBot extends TelegramLongPollingBot {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(AdvisorBot.class);
+
     final int RECONNECT_PAUSE = 10000;
 
     @Value("${bot.name}")

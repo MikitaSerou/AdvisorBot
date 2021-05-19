@@ -18,6 +18,7 @@ import java.util.Map;
 public class CityController {
 
     private static final Logger log = org.slf4j.LoggerFactory.getLogger(CityController.class);
+
     @Autowired
     private CityService cityService;
 
@@ -72,6 +73,15 @@ public class CityController {
         return "redirect:/city";
     }
 
+    @GetMapping("/found/{name}")
+    public String showUser(@PathVariable("name") String name, Model model) {
+        log.info("GET request /city/found/" + name);
+        model.addAttribute("cityName", name);
+        model.addAttribute("cityList", cityService.findByName(name));
+
+        return "city/found_cities";
+    }
+
     @GetMapping("/edit/{id}")
     public String cityEditPage(@PathVariable Integer id, Model model) {
         log.info("GET request /city/edit/" + id);
@@ -81,7 +91,6 @@ public class CityController {
 
         return "city/city_edit";
     }
-
 
     @PostMapping(value = "/edit/{id}")
     public String editCity(@PathVariable("id") Integer id,
