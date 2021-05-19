@@ -25,12 +25,9 @@ public class AdvisorBot extends TelegramLongPollingBot {
     @Value("${bot.token}")
     private String token;
 
+    @Autowired
     private MessageDistributor messageDistributor;
 
-    @Autowired
-    public AdvisorBot(MessageDistributor messageDistributor) {
-        this.messageDistributor = messageDistributor;
-    }
 
     public AdvisorBot(String userName, String token, MessageDistributor messageDistributor) {
         this.userName = userName;
