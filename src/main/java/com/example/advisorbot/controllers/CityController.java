@@ -4,7 +4,7 @@ import com.example.advisorbot.entity.City;
 import com.example.advisorbot.service.CityService;
 import com.example.advisorbot.service.CountryService;
 import com.example.advisorbot.utils.FormValidator;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @Controller
-@Slf4j
 @RequestMapping("/city")
 public class CityController {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(CityController.class);
 
     @Autowired
     private CityService cityService;
@@ -72,6 +73,15 @@ public class CityController {
         return "redirect:/city";
     }
 
+    @GetMapping("/found/{name}")
+    public String showUser(@PathVariable("name") String name, Model model) {
+        log.info("GET request /city/found/" + name);
+        model.addAttribute("cityName", name);
+        model.addAttribute("cityList", cityService.findByName(name));
+
+        return "city/found_cities";
+    }
+
     @GetMapping("/edit/{id}")
     public String cityEditPage(@PathVariable Integer id, Model model) {
         log.info("GET request /city/edit/" + id);
@@ -81,7 +91,6 @@ public class CityController {
 
         return "city/city_edit";
     }
-
 
     @PostMapping(value = "/edit/{id}")
     public String editCity(@PathVariable("id") Integer id,

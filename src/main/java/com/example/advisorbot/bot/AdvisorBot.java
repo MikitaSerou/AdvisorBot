@@ -1,8 +1,7 @@
 package com.example.advisorbot.bot;
 
 import com.example.advisorbot.bot.bot_services.MessageDistributor;
-import lombok.*;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -14,14 +13,10 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
-@ToString
-@Slf4j
 @Component
 public class AdvisorBot extends TelegramLongPollingBot {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(AdvisorBot.class);
 
     final int RECONNECT_PAUSE = 10000;
 
@@ -31,11 +26,17 @@ public class AdvisorBot extends TelegramLongPollingBot {
     @Value("${bot.token}")
     private String token;
 
+    @Autowired
     private MessageDistributor messageDistributor;
 
-    @Autowired
-    public AdvisorBot(MessageDistributor messageDistributor) {
+
+    public AdvisorBot(String userName, String token, MessageDistributor messageDistributor) {
+        this.userName = userName;
+        this.token = token;
         this.messageDistributor = messageDistributor;
+    }
+
+    public AdvisorBot() {
     }
 
     @Override
@@ -83,5 +84,37 @@ public class AdvisorBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getRECONNECT_PAUSE() {
+        return this.RECONNECT_PAUSE;
+    }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public String getToken() {
+        return this.token;
+    }
+
+    public MessageDistributor getMessageDistributor() {
+        return this.messageDistributor;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public void setMessageDistributor(MessageDistributor messageDistributor) {
+        this.messageDistributor = messageDistributor;
+    }
+
+    public String toString() {
+        return "AdvisorBot(RECONNECT_PAUSE=" + this.getRECONNECT_PAUSE() + ", userName=" + this.getUserName() + ", token=" + this.getToken() + ", messageDistributor=" + this.getMessageDistributor() + ")";
     }
 }

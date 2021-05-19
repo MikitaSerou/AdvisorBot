@@ -3,7 +3,7 @@ package com.example.advisorbot.service;
 import com.example.advisorbot.entity.City;
 import com.example.advisorbot.entity.Country;
 import com.example.advisorbot.repository.CityRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Slf4j
 public class CityService {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(CityService.class);
 
     @Autowired
     private CityRepository cityRepository;

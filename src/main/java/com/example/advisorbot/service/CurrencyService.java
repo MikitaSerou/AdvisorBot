@@ -1,9 +1,8 @@
 package com.example.advisorbot.service;
 
-import com.example.advisorbot.entity.City;
 import com.example.advisorbot.entity.Currency;
 import com.example.advisorbot.repository.CurrencyRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +10,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Slf4j
 public class CurrencyService {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(CurrencyService.class);
 
     @Autowired
     private CurrencyRepository currencyRepository;
+
 
     public Currency findById(Integer id) {
         log.info("findById(Integer " + id + ")");
@@ -28,7 +29,7 @@ public class CurrencyService {
         return currency.orElse(null);
     }
 
-    public List<Currency> findAll(){
+    public List<Currency> findAll() {
         return (List<Currency>) currencyRepository.findAll();
     }
 }

@@ -3,7 +3,7 @@ package com.example.advisorbot.bot.bot_services;
 import com.example.advisorbot.bot.enums.Commands;
 import com.example.advisorbot.bot.enums.Links;
 import com.example.advisorbot.entity.City;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -16,8 +16,9 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-@Slf4j
 public class KeyboardsProvider {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(KeyboardsProvider.class);
 
     //Get keyboard buttons below users message input field
     public synchronized ReplyKeyboardMarkup getReplyKeyboard() {

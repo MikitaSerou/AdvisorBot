@@ -3,7 +3,7 @@ package com.example.advisorbot.service;
 import com.example.advisorbot.entity.Country;
 import com.example.advisorbot.entity.Currency;
 import com.example.advisorbot.repository.CountryRepository;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +14,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Slf4j
 public class CountryService {
+
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(CountryService.class);
 
     @Autowired
     private CountryRepository countryRepository;
