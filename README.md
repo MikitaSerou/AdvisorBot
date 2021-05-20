@@ -21,21 +21,25 @@ Telegram-бот предоставляет информацию о городе,
   Из среды разработки - запуск класса com.example.advisorbot.AdvisorBotApplication
 - ### Tomcat
   .war файл в директории /AdvisorBot/runing/advisor-bot.war (Использовалась версия tomcat 9.0.46);
-    - В директорию c контейнером сервлетов tomcat копировать advisor-bot.war файл в папку webapps;
-    - В папке bin контейнера сервлетов запустить скрипт `startup.bat` (windows), или `startup.sh` (linux);
-    - перейти в браузере по адресу:
-       ```sh
-       http://localhost:8080/advisor-bot/
-       ```
+  - В директорию c контейнером сервлетов tomcat копировать advisor-bot.war файл в папку webapps;
+  - В папке bin контейнера сервлетов запустить скрипт `startup.bat` (windows), или `startup.sh` (linux);
+  - перейти в браузере по адресу:
+     ```sh
+     http://localhost:8080/advisor-bot/
+     ```
+
   Дополнительная информация по запуску:
-    - Скачать Tomcat - https://tomcat.apache.org/download-90.cgi.
-    - Пример запуска .war файла - https://coderoad.ru/5109112/%D0%9A%D0%B0%D0%BA-%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D1%82%D1%8C-%D1%84%D0%B0%D0%B9%D0%BB-war-%D0%B2-Tomcat-7.
-    - 
-- ### Docker:
-  Если на вашем устройстве установлены Docker и Docker-compose -  просто введите в терминале корневого каталога проекта:
-         ```sh
-       docker-compose up --build
-       ```
+  - Скачать Tomcat - https://tomcat.apache.org/download-90.cgi.
+  - Пример запуска .war файла - https://coderoad.ru/5109112/%D0%9A%D0%B0%D0%BA-%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D1%82%D1%8C-%D1%84%D0%B0%D0%B9%D0%BB-war-%D0%B2-Tomcat-7.
+
+- ### Docker
+  В случе, если у вас установлен Docker - вы можете загрузить image данного проекта (содержит слой tomcat с установленным в него .war файлом приложения):
+
+     ```sh
+      docker-compose up --build
+     ```
+
+
 ## Используемые технологии
 
 AdvisorForTripBot использует следующие технологии:
@@ -43,13 +47,13 @@ AdvisorForTripBot использует следующие технологии:
 - `Maven` - сборка проекта
 - `Spring (Boot)` - универсальный фреймворк с открытым исходным кодом для Java-платформы.
   Модули Spring Framework:
-    -  `Spring MVC` - каркас Web-приложения, основанный на HTTP и сервлетах;
-    -  `Spring data` - для доступа к базе данных;
-    -  `Spring security` - щащита Web-приложения.
+  -  `Spring MVC` - каркас Web-приложения, основанный на HTTP и сервлетах;
+  -  `Spring data` - для доступа к базе данных;
+  -  `Spring security` - щащита Web-приложения.
 
 - `TelegramBots` - Java Api для создания телеграм-ботов.
-    -  `telegrambots-spring-boot-starter` - для работы с API телеграм-бота с использование Spring Boot;
-    -  `emoji-java` - парсинг строк для вывода в сообщения emoji;
+  -  `telegrambots-spring-boot-starter` - для работы с API телеграм-бота с использование Spring Boot;
+  -  `emoji-java` - парсинг строк для вывода в сообщения emoji;
 - `h2` -   открытая кроссплатформенная СУБД, полностью написанная на языке Java.
 - `.jsp` - представления Web-страниц.
 - `Bootstrap` - UI;
