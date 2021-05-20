@@ -57,7 +57,7 @@ public class MessageDistributor {
     public SendMessage answerForCityRequest(SendMessage message, String updateText) {
         //   init();
         log.info("answerForCityRequest(SendMessage " + message + ", String " + updateText + ")");
-        List<City> searchedCity = cityService.findByName(updateText);
+        List<City> searchedCity = cityService.findByNameAndSimilar(updateText);
         if (searchedCity != null) {
             if (updateText.equalsIgnoreCase(searchedCity.get(0).getName())) {
                 message.enableHtml(true);

@@ -45,7 +45,12 @@ public class CityService {
         }
     }
 
-    public List<City> findByName(String name) {
+    public City findByName(String name) {
+        log.info("findByName(String " + name + ")");
+        return cityRepository.findCityByName(name.toUpperCase());
+    }
+
+    public List<City> findByNameAndSimilar(String name) {
         log.info("findByName(String " + name + ")");
         City city = cityRepository.findCityByName(name.toUpperCase());
 

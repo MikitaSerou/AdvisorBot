@@ -76,7 +76,7 @@ public class CityController {
     public String showUser(@PathVariable("name") String name, Model model) {
         log.info("GET request /city/found/" + name);
         model.addAttribute("cityName", name);
-        model.addAttribute("cityList", cityService.findByName(name));
+        model.addAttribute("cityList", cityService.findByNameAndSimilar(name));
 
         return "city/found_cities";
     }
