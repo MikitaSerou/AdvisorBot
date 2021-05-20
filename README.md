@@ -23,7 +23,7 @@ Telegram-бот предоставляет информацию о городе,
 - ### Tomcat
   .war файл в директории /AdvisorBot/run/advisor-bot.war (Использовалась версия tomcat 9.0.46);
     - В директорию c контейнером сервлетов tomcat копировать advisor-bot.war файл в папку webapps;
-    - В папке bin контейнера сервлетов запустить скрипт startup.bat или startup.sh (windows/linux);
+    - В папке bin контейнера сервлетов запустить скрипт `startup.bat` (windows), или `startup.sh` (linux);
     - перейти в браузере по адресу:
        ```sh
        http://localhost:8080/advisor-bot/
