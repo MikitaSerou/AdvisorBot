@@ -27,11 +27,15 @@ Telegram-бот предоставляет информацию о городе,
        ```sh
        http://localhost:8080/advisor-bot/
        ```
-
   Дополнительная информация по запуску:
     - Скачать Tomcat - https://tomcat.apache.org/download-90.cgi.
     - Пример запуска .war файла - https://coderoad.ru/5109112/%D0%9A%D0%B0%D0%BA-%D1%80%D0%B0%D0%B7%D0%B2%D0%B5%D1%80%D0%BD%D1%83%D1%82%D1%8C-%D1%84%D0%B0%D0%B9%D0%BB-war-%D0%B2-Tomcat-7.
-
+    - 
+- ### Docker:
+  Если на вашем устройстве установлены Docker и Docker-compose -  просто введите в терминале корневого каталога проекта:
+         ```sh
+       docker-compose up --build
+       ```
 ## Используемые технологии
 
 AdvisorForTripBot использует следующие технологии:
