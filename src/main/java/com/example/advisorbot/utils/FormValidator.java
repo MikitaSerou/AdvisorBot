@@ -41,10 +41,6 @@ public class FormValidator {
             log.error("City description not entered");
             errors.put("empty_description", "Введите описание");
         }
-        if (!Pattern.matches("^[а-яА-ЯёЁa]+$", description)) {
-            log.error("City description not Cyrillic");
-            errors.put("empty_description", "Только кириллица");
-        }
 
         return errors;
     }
