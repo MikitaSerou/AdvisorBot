@@ -30,7 +30,7 @@ public class MySqlExecutor {
     @Autowired
     private CountryService countryService;
 
-    @PostConstruct
+   // @PostConstruct
     public void initDataBase() {
         log.info("initDataBase()");
         log.info("Initialize database...");

@@ -33,7 +33,7 @@ public class FormValidator {
             log.error("City name not specified");
             errors.put("empty_name", "Введите название города");
         }
-        if (!Pattern.matches("^[а-яА-ЯёЁa]+$", name)) {
+        if (!Pattern.matches("^[?!,.а-яА-ЯёЁ\\s]+$", name)) {
             log.error("City name not Cyrillic");
             errors.put("not_cyrillic_name", "Только кириллица");
         }
@@ -55,7 +55,7 @@ public class FormValidator {
             log.error("Country name not specified");
             errors.put("empty_name", "Введите название страны");
         }
-        if (!Pattern.matches("^[а-яА-ЯёЁa]+$", name)) {
+        if (!Pattern.matches("^[?!,.а-яА-ЯёЁ0-9\\s]+$", name)) {
             log.error("Country name not Cyrillic");
             errors.put("not_cyrillic_name", "Только кириллица");
         }
