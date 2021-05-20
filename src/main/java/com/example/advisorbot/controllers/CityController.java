@@ -41,7 +41,6 @@ public class CityController {
     @GetMapping("/new")
     public String newCityPage(Model model) {
         log.info("GET request /city/new");
-        log.info("GET request /city/new " + model);
         model.addAttribute("countries", countryService.findAll());
 
         return "city/new_city";
